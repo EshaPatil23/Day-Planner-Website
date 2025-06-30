@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Motivational Quotes - Day Planner</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://images.unsplash.com/photo-1506784365847-bbad939e9335?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #2c3e50;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(255, 255, 255, 0.85);
+      z-index: -1;
+    }
+
+    nav {
+      background-color: #2c3e50;
+      padding: 15px 30px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin: 0 12px;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 80px auto;
+      background-color: white;
+      padding: 40px 30px;
+      border-radius: 14px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    #quote {
+      font-size: 22px;
+      font-style: italic;
+      color: #34495e;
+      margin-bottom: 30px;
+      transition: 0.3s ease-in-out;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1c6691;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">💬 Day Planner</div>
+    <div class="nav-links">
+      <a href="home.html">Home</a>
+      <a href="calendar.html">Calculator</a>
+      <a href="todo.html">To-Do</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="notes.html">Notes</a>
+      <a href="reminders.html">Reminders</a>
+	  <a href="drinkwater.html">Drink Water</a>
+      <a href="goals.html">Goals</a>
+      <a href="quotes.html">Quotes</a>
+	  <a href="games.html">Games</a>
+	  <a href="settings.html">Settings</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>Motivational Quote of the Moment</h1>
+    <div id="quote">Click below to get a quote that inspires you!</div>
+    <button onclick="generateQuote()">✨ New Quote</button>
+  </div>
+
+  <script>
+    const quotes = [
+      "The best time to start was yesterday. The next best time is now.",
+      "Don’t watch the clock; do what it does. Keep going.",
+      "Your limitation—it’s only your imagination.",
+      "Push yourself, because no one else is going to do it for you.",
+      "Success doesn’t just find you. You have to go out and get it.",
+      "Sometimes later becomes never. Do it now.",
+      "Great things never come from comfort zones.",
+      "Dream it. Wish it. Do it.",
+      "Stay focused and never give up.",
+      "Make each day your masterpiece."
+    ];
+
+    function generateQuote() {
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      document.getElementById("quote").textContent = quotes[randomIndex];
+    }
+  </script>
+
+</body>
+</html>
