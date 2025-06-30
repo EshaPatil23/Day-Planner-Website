@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Click the Circle Game</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://images.unsplash.com/photo-1506015391300-4802dc74de2e') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
+
+    .navbar {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .game-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .circle {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-color: red;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+    }
+
+    h1 {
+      margin-top: 40px;
+    }
+
+    #score {
+      font-size: 1.5rem;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #4caf50;
+      color: white;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-brand">🗓️ Day Planner</div>
+    <ul class="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="calendar.html">Calendar</a></li>
+      <li><a href="todo.html">To-Do</a></li>
+      <li><a href="notes.html">Notes</a></li>
+      <li><a href="goals.html">Goals</a></li>
+      <li><a href="quotes.html">Quotes</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="games.html">Games</a></li>
+    </ul>
+  </nav>
+
+  <div class="game-container">
+    <h1>🎯 Click the Circle!</h1>
+    <p>Try to click the red circle as fast as you can. Score as many as possible in 30 seconds!</p>
+    <div id="score">Score: 0</div>
+    <button onclick="startGame()">Start Game</button>
+    <div class="circle" id="circle"></div>
+  </div>
+
+  <script>
+    const circle = document.getElementById("circle");
+    const scoreDisplay = document.getElementById("score");
+    let score = 0;
+    let gameRunning = false;
+    let timer;
+
+    function randomPosition() {
+      const x = Math.random() * (window.innerWidth - 60);
+      const y = Math.random() * (window.innerHeight - 60);
+      circle.style.left = x + "px";
+      circle.style.top = y + "px";
+    }
+
+    function startGame() {
+      score = 0;
+      scoreDisplay.textContent = "Score: " + score;
+      gameRunning = true;
+      circle.style.display = "block";
+      randomPosition();
+
+      timer = setTimeout(() => {
+        gameRunning = false;
+        circle.style.display = "none";
+        alert("Time's up! Your score is: " + score);
+      }, 30000); // 30 seconds
+    }
+
+    circle.addEventListener("click", () => {
+      if (gameRunning) {
+        score++;
+        scoreDisplay.textContent = "Score: " + score;
+        randomPosition();
+      }
+    });
+  </script>
+
+</body>
+</html>
