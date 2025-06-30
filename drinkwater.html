@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Water Tracker - Day Planner</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://images.unsplash.com/photo-1532635247-0f2056c41f92') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    nav {
+      background-color: #3498db;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: white;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav ul li a:hover {
+      color: #ffeb3b;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 80px auto;
+      padding: 40px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      font-size: 2.4rem;
+    }
+
+    .glasses {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      justify-items: center;
+      margin-bottom: 20px;
+    }
+
+    .glass {
+      width: 60px;
+      height: 100px;
+      border: 3px solid #00bfff;
+      border-radius: 10px;
+      background-color: transparent;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .glass.filled {
+      background-color: #00bfff;
+    }
+
+    .glass:hover {
+      opacity: 0.8;
+    }
+
+    #status {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #00ffcc;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">📅 Day Planner</div>
+    <ul>
+        <a href="home.html">Home</a>
+      <a href="calendar.html">Calculator</a>
+      <a href="todo.html">To-Do</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="notes.html">Notes</a>
+      <a href="reminders.html">Reminders</a>
+      <a href="goals.html">Goals</a>
+      <a href="quotes.html">Quotes</a>
+	  <a href="drinkwater.html">Drink Water</a>
+	  <a href="games.html">Games</a>
+      <a href="settings.html">Settings</a>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h1>💧 Daily Water Tracker</h1>
+    <p>Tap a glass each time you drink water</p>
+
+    <div class="glasses">
+      <div class="glass" onclick="fillGlass(0)"></div>
+      <div class="glass" onclick="fillGlass(1)"></div>
+      <div class="glass" onclick="fillGlass(2)"></div>
+      <div class="glass" onclick="fillGlass(3)"></div>
+      <div class="glass" onclick="fillGlass(4)"></div>
+      <div class="glass" onclick="fillGlass(5)"></div>
+      <div class="glass" onclick="fillGlass(6)"></div>
+      <div class="glass" onclick="fillGlass(7)"></div>
+    </div>
+
+    <div id="status">0 / 8 glasses completed</div>
+  </div>
+
+  <script>
+    let filled = [false, false, false, false, false, false, false, false];
+
+    function fillGlass(index) {
+      const glass = document.getElementsByClassName('glass')[index];
+      filled[index] = !filled[index];
+      glass.classList.toggle('filled');
+
+      const count = filled.filter(g => g).length;
+      document.getElementById("status").innerText = `${count} / 8 glasses completed`;
+
+      if (count === 8) {
+        document.getElementById("status").innerText += " 🎉 Goal Reached!";
+      }
+    }
+  </script>
+</body>
+</html>
