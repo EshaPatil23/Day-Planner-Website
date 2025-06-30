@@ -1,0 +1,156 @@
+s<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Typing Speed Game</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://images.unsplash.com/photo-1548092372-0d1bd40894a3') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
+
+    nav.navbar {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 30px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 15px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    #sentence {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    #inputBox {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 15px;
+    }
+
+    #startBtn, #resetBtn {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      margin: 10px;
+      cursor: pointer;
+      background: #fff;
+      color: #000;
+    }
+
+    #result {
+      font-size: 1.2rem;
+      margin-top: 15px;
+      color: lightgreen;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-brand">🗓️ Day Planner</div>
+    <ul class="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="calendar.html">Calendar</a></li>
+      <li><a href="todo.html">To-Do</a></li>
+      <li><a href="notes.html">Notes</a></li>
+      <li><a href="goals.html">Goals</a></li>
+      <li><a href="quotes.html">Quotes</a></li>
+      <li><a href="games.html">Games</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h1>⌨️ Typing Speed Game</h1>
+    <p id="sentence"></p>
+    <input type="text" id="inputBox" placeholder="Start typing here..." disabled />
+    <br />
+    <button id="startBtn" onclick="startGame()">Start</button>
+    <button id="resetBtn" onclick="resetGame()">Reset</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const sentences = [
+      "Time is a created thing. To say 'I don’t have time' is to say 'I don’t want to.'",
+      "Your time is limited, so don’t waste it living someone else’s life.",
+      "Productivity is never an accident. It is always the result of a commitment to excellence.",
+      "The key is in not spending time, but in investing it.",
+      "Success usually comes to those who are too busy to be looking for it."
+    ];
+
+    let startTime, endTime;
+    const sentenceDisplay = document.getElementById("sentence");
+    const inputBox = document.getElementById("inputBox");
+    const result = document.getElementById("result");
+
+    function startGame() {
+      const randomIndex = Math.floor(Math.random() * sentences.length);
+      sentenceDisplay.textContent = sentences[randomIndex];
+      inputBox.value = "";
+      inputBox.disabled = false;
+      inputBox.focus();
+      result.textContent = "";
+      startTime = new Date().getTime();
+    }
+
+    inputBox.addEventListener("input", () => {
+      const typedText = inputBox.value;
+      if (typedText === sentenceDisplay.textContent) {
+        endTime = new Date().getTime();
+        const totalTime = (endTime - startTime) / 1000; // in seconds
+        const words = typedText.split(" ").length;
+        const speed = Math.round((words / totalTime) * 60);
+        result.textContent = `🎉 Great job! Your typing speed is ${speed} words per minute.`;
+        inputBox.disabled = true;
+      }
+    });
+
+    function resetGame() {
+      inputBox.value = "";
+      sentenceDisplay.textContent = "";
+      result.textContent = "";
+      inputBox.disabled = true;
+    }
+  </script>
+
+</body>
+</html>
