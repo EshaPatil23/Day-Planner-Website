@@ -30,7 +30,6 @@ This Day Planner Website is a simple, user-friendly web application designed to 
 
 Frontend: HTML, CSS, JavaScript (or update if you used frameworks like React/Vue)
 
-Other: Responsive design, lightweight, minimal dependencies
 
 
 💡 Purpose
