@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Goals - Day Planner</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #2c3e50;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      z-index: -1;
+    }
+
+    nav {
+      background-color: #2c3e50;
+      padding: 15px 30px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin: 0 12px;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 60px auto;
+      padding: 30px;
+      background-color: white;
+      border-radius: 14px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    input[type="text"] {
+      width: 75%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 16px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .goal {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #ecf0f1;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .goal.done span {
+      text-decoration: line-through;
+      color: #999;
+    }
+
+    .goal-buttons button {
+      margin-left: 6px;
+      padding: 6px 10px;
+      font-size: 14px;
+      border-radius: 5px;
+    }
+
+    .edit-btn {
+      background-color: #f39c12;
+      color: white;
+    }
+
+    .delete-btn {
+      background-color: #e74c3c;
+      color: white;
+    }
+
+    .done-btn {
+      background-color: #27ae60;
+      color: white;
+    }
+
+    .edit-btn:hover { background-color: #d68910; }
+    .delete-btn:hover { background-color: #c0392b; }
+    .done-btn:hover { background-color: #1e8449; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">🎯 Day Planner</div>
+    <div class="nav-links">
+      <a href="home.html">Home</a>
+      <a href="calendar.html">Calculator</a>
+      <a href="todo.html">To-Do</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="notes.html">Notes</a>
+      <a href="reminders.html">Reminders</a>
+	  <a href="drinkwater.html">Drink Water</a>
+      <a href="goals.html">Goals</a>
+      <a href="quotes.html">Quotes</a>
+	  <a href="games.html">Games</a>
+	  <a href="settings.html">Settings</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>Set Your Goals</h1>
+    <div>
+      <input type="text" id="goalInput" placeholder="Enter your goal..." />
+      <button onclick="addGoal()">Add Goal</button>
+    </div>
+    <div id="goalsList"></div>
+  </div>
+
+  <script>
+    function addGoal() {
+      const input = document.getElementById("goalInput");
+      const goalText = input.value.trim();
+      if (!goalText) return;
+
+      const goalDiv = document.createElement("div");
+      goalDiv.className = "goal";
+
+      const span = document.createElement("span");
+      span.textContent = goalText;
+
+      const btns = document.createElement("div");
+      btns.className = "goal-buttons";
+
+      const doneBtn = document.createElement("button");
+      doneBtn.textContent = "Done";
+      doneBtn.className = "done-btn";
+      doneBtn.onclick = () => goalDiv.classList.toggle("done");
+
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "Edit";
+      editBtn.className = "edit-btn";
+      editBtn.onclick = () => {
+        const updated = prompt("Edit your goal:", span.textContent);
+        if (updated !== null) span.textContent = updated;
+      };
+
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "Delete";
+      delBtn.className = "delete-btn";
+      delBtn.onclick = () => goalDiv.remove();
+
+      btns.appendChild(doneBtn);
+      btns.appendChild(editBtn);
+      btns.appendChild(delBtn);
+
+      goalDiv.appendChild(span);
+      goalDiv.appendChild(btns);
+
+      document.getElementById("goalsList").appendChild(goalDiv);
+      input.value = "";
+    }
+  </script>
+
+</body>
+</html>
