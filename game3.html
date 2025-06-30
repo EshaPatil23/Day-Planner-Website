@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Memory Match Game</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://images.unsplash.com/photo-1523978591478-c753949ff840') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    .navbar {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(4, 100px);
+      grid-gap: 15px;
+      justify-content: center;
+      margin: 30px auto;
+    }
+
+    .card {
+      width: 100px;
+      height: 100px;
+      background-color: #ffffff80;
+      color: black;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .card.flipped {
+      background-color: #fff;
+    }
+
+    .card.matched {
+      background-color: #4caf50;
+      color: white;
+      pointer-events: none;
+    }
+
+    #message {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 500px) {
+      .game-board {
+        grid-template-columns: repeat(3, 80px);
+        grid-gap: 10px;
+      }
+      .card {
+        width: 80px;
+        height: 80px;
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-brand">🗓️ Day Planner</div>
+    <ul class="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="calendar.html">Calendar</a></li>
+      <li><a href="todo.html">To-Do</a></li>
+      <li><a href="notes.html">Notes</a></li>
+      <li><a href="goals.html">Goals</a></li>
+      <li><a href="quotes.html">Quotes</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="games.html">Games</a></li>
+    </ul>
+  </nav>
+
+  <h1>🧠 Memory Match Game</h1>
+  <div id="message"></div>
+  <div class="game-board" id="gameBoard"></div>
+
+  <script>
+    const emojis = ['🐶', '🐱', '🦊', '🐸', '🐵', '🦁', '🐼', '🐷'];
+    const cards = [...emojis, ...emojis];
+    let flippedCards = [];
+    let matchedCount = 0;
+
+    const gameBoard = document.getElementById('gameBoard');
+    const message = document.getElementById('message');
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    function createBoard() {
+      shuffle(cards);
+      cards.forEach((emoji, index) => {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.dataset.emoji = emoji;
+        card.dataset.index = index;
+        card.innerHTML = '';
+        card.addEventListener('click', flipCard);
+        gameBoard.appendChild(card);
+      });
+    }
+
+    function flipCard() {
+      if (this.classList.contains('flipped') || flippedCards.length === 2) return;
+
+      this.classList.add('flipped');
+      this.innerHTML = this.dataset.emoji;
+      flippedCards.push(this);
+
+      if (flippedCards.length === 2) {
+        const [first, second] = flippedCards;
+        if (first.dataset.emoji === second.dataset.emoji) {
+          first.classList.add('matched');
+          second.classList.add('matched');
+          matchedCount += 2;
+          flippedCards = [];
+
+          if (matchedCount === cards.length) {
+            message.textContent = "🎉 Congratulations! You've matched all cards!";
+          }
+        } else {
+          setTimeout(() => {
+            first.classList.remove('flipped');
+            second.classList.remove('flipped');
+            first.innerHTML = '';
+            second.innerHTML = '';
+            flippedCards = [];
+          }, 1000);
+        }
+      }
+    }
+
+    createBoard();
+  </script>
+</body>
+</html>
